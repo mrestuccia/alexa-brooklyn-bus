@@ -1,0 +1,25 @@
+{
+  "intents": [
+    {
+      "intent": "GetNextBus",
+      "slots": [
+        {
+          "name": "bus",
+          "type": "NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "GetAddress"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    }
+  ]
+}

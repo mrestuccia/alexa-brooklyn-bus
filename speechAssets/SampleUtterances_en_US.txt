@@ -1,0 +1,81 @@
+GetNextBus get next bus for {three zero four four four two|bus}
+GetNextBus get next scheduled bus for {three zero four four fiv six|bus}
+GetNextBus get next arrival for {five zero eight nine zero five|bus}
+GetNextBus get bus for {two zero eight nine seven nine|bus}
+GetNextBus next bus for {three zero four four four two|bus}
+GetNextBus next scheduled bus for {three zero four four fiv six|bus}
+GetNextBus next arrival for {five zero eight nine zero five|bus}
+GetNextBus bus for {two zero eight nine seven nine|bus}
+GetNextBus get next bus at {three zero four four four two|bus}
+GetNextBus get next scheduled bus at {three zero four four fiv six|bus}
+GetNextBus get next arrival at {five zero eight nine zero five|bus}
+GetNextBus get bus at {two zero eight nine seven nine|bus}
+GetNextBus next bus at {three zero four four four two|bus}
+GetNextBus next scheduled bus at {three zero four four fiv six|bus}
+GetNextBus next arrival at {five zero eight nine zero five|bus}
+GetNextBus bus at {two zero eight nine seven nine|bus}
+GetNextBus get next bus {three zero four four four two|bus}
+GetNextBus get next scheduled bus {three zero four four fiv six|bus}
+GetNextBus get next arrival {five zero eight nine zero five|bus}
+GetNextBus get bus {two zero eight nine seven nine|bus}
+GetNextBus next bus {three zero four four four two|bus}
+GetNextBus next scheduled bus {three zero four four fiv six|bus}
+GetNextBus next arrival {five zero eight nine zero five|bus}
+GetNextBus bus {two zero eight nine seven nine|bus}
+GetNextBus find next bus at {three zero four four four two|bus}
+GetNextBus find next scheduled bus at {three zero four four fiv six|bus}
+GetNextBus find next arrival at {five zero eight nine zero five|bus}
+GetNextBus find bus at {two zero eight nine seven nine|bus}
+GetNextBus get next bus for {five|bus}
+GetNextBus get next scheduled bus for {six eight|bus}
+GetNextBus get next arrival for {seven nine five|bus}
+GetNextBus get bus for {nine zero nine|bus}
+GetNextBus next bus for {five|bus}
+GetNextBus next scheduled bus for {six eight|bus}
+GetNextBus next arrival for {seven nine five|bus}
+GetNextBus bus for {nine zero nine|bus}
+GetNextBus get next bus at {five|bus}
+GetNextBus get next scheduled bus at {six eight|bus}
+GetNextBus get next arrival at {seven nine five|bus}
+GetNextBus get bus at {nine zero nine|bus}
+GetNextBus next bus at {five|bus}
+GetNextBus next scheduled bus at {six eight|bus}
+GetNextBus next arrival at {seven nine five|bus}
+GetNextBus bus at {nine zero nine|bus}
+GetNextBus get next bus {five|bus}
+GetNextBus get next scheduled bus {six eight|bus}
+GetNextBus get next arrival {seven nine five|bus}
+GetNextBus get bus {nine zero nine|bus}
+GetNextBus next bus {five|bus}
+GetNextBus next scheduled bus {six eight|bus}
+GetNextBus next arrival {seven nine five|bus}
+GetNextBus bus {nine zero nine|bus}
+GetNextBus find next bus at {five|bus}
+GetNextBus find next scheduled bus at {six eight|bus}
+GetNextBus find next arrival at {seven nine five|bus}
+GetNextBus find bus at {nine zero nine|bus}
+
+HelpIntent help
+HelpIntent help me
+HelpIntent what can I ask you
+HelpIntent get help
+HelpIntent to help
+HelpIntent to help me
+HelpIntent what commands can I ask
+HelpIntent what commands can I say
+HelpIntent what can I do
+HelpIntent what can I use this for
+HelpIntent what questions can I ask
+HelpIntent what can you do
+HelpIntent what do you do
+HelpIntent how do I use you
+HelpIntent how can I use you
+HelpIntent what can you tell me
+HelpIntent how do i find a bus
+
+
+GetAddress where am I located
+GetAddress where do I live
+GetAddress whats my address
+GetAddress where am I
+GetAddress whats my location
