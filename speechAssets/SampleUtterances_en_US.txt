@@ -55,6 +55,10 @@ GetNextBus find next scheduled bus at {six eight|bus}
 GetNextBus find next arrival at {seven nine five|bus}
 GetNextBus find bus at {nine zero nine|bus}
 
+GetStopsNearby what are the stops nearby
+GetStopsNearby get me the stops nearby
+GetStopsNearby where are the closest stops
+
 HelpIntent help
 HelpIntent help me
 HelpIntent what can I ask you

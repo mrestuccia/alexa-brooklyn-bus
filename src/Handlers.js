@@ -1,15 +1,12 @@
 'use strict';
 
-/**
- * This class contains all handler function definitions
- * for the various events that we will be registering for.
- * For an understanding of how these Alexa Skill event objects
- * are structured refer to the following documentation:
- * https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/alexa-skills-kit-interface-reference
- */
 
 // Internal imports
 const AlexaDeviceAddressClient = require('./AlexaDeviceAddressClient');
+const OBUClient = require('./OBUClient');
+const SiriClient = require('./SiriClient');
+
+
 const Intents = require('./Intents');
 const Events = require('./Events');
 const Messages = require('./Messages');
@@ -110,13 +107,96 @@ const getAddressHandler = function () {
     });
 };
 
+
+const getStopsNearby = function () {
+    console.info("Starting getStopsNearby()");
+
+
+    // 405 Franklin Lat, Long
+    let lat = 40.685168;
+    let long = -73.956191;
+
+    const apiEndpoint = 'https://bustime.mta.info/api';
+
+    const _OBUClient = new OBUClient(apiEndpoint);
+    let promiseRequest = _OBUClient.getStopId();
+
+
+    promiseRequest.then((response) => {
+        switch (response.statusCode) {
+            case 200:
+                const data = response.message;
+                console.log("OBU successfully retrieved, now responding to user.", data);
+
+                var feedback = data.data.stops.map(function (stop) {
+                    return 'the ' + stop.routes[0].shortName + ' in ' + stop.name.replace('/', ' and ') + '.';
+                }).join(' or ');
+
+                //data.data.stops[1].code
+
+                this.emit(":tell", 'Your can take : ' + feedback);
+                break;
+            case 204:
+                // This likely means that the user didn't have their address set via the companion app.
+                console.log("Successfully requested from the OBU, but not found");
+                this.emit(":tell", 'There was an issue retrieving the information');
+                break;
+            default:
+                this.emit(":ask", Messages.LOCATION_FAILURE, Messages.LOCATION_FAILURE);
+        }
+
+        console.info("Ending getStopsNearby()");
+    });
+
+    promiseRequest.catch((error) => {
+        this.emit(":tell", Messages.ERROR);
+        console.error(error);
+        console.info("Ending getStopsNearby()");
+    });
+}
+
+
+
 // Mauro
 const getNextBusHandler = function () {
     console.info("Starting getNextBusHandler()");
 
-    const ADDRESS_MESSAGE = Messages.NEXT_BUS_ADDRESS_AVAIABLE + this.event.request.intent.slots.bus.value;
 
-    this.emit(":tell", ADDRESS_MESSAGE);
+    // 405 Franklin Lat, Long
+    let lat = 40.685168;
+    let long = -73.956191;
+
+    const apiEndpoint = 'https://bustime.mta.info/api';
+
+    const _SiriClient = new SiriClient();
+    let promiseRequest = _SiriClient.getTime();
+
+    promiseRequest.then((response) => {
+        switch (response.statusCode) {
+            case 200:
+                const data = response.message;
+                console.log("Siri successfully retrieved, now responding to user.");
+                this.emit(":tell", 'Your next B52 bus is 6 miles away');
+                
+                //this.emit(":tell", 'Your next B52 bus is: ' + data.Siri.ServiceDelivery.StopMonitoringDelivery[0].MonitoredStopVisit[0].MonitoredVehicleJourney.MonitoredCall.Extensions.Distances.PresentableDistance);
+                break;
+            case 204:
+                // This likely means that the user didn't have their address set via the companion app.
+                console.log("Successfully requested from the Siri, but not found");
+                this.emit(":tell", 'There was an issue retrieving the information');
+                break;
+            default:
+                this.emit(":ask", Messages.LOCATION_FAILURE, Messages.LOCATION_FAILURE);
+        }
+
+        console.info("Ending getNextBusHandler()");
+    });
+
+    promiseRequest.catch((error) => {
+        this.emit(":tell", Messages.ERROR);
+        console.error(error);
+        console.info("Ending getNextBusHandler()");
+    });
 
 };
 
@@ -184,6 +264,7 @@ handlers[Events.UNHANDLED] = unhandledRequestHandler;
 // Add intent handlers
 handlers[Intents.GET_ADDRESS] = getAddressHandler;
 handlers[Intents.GET_NEXTBUS] = getNextBusHandler; //Mauro
+handlers[Intents.GET_STOPS_NEARBY] = getStopsNearby; //Mauro
 handlers[Intents.AMAZON_CANCEL] = amazonCancelHandler;
 handlers[Intents.AMAZON_STOP] = amazonStopHandler;
 handlers[Intents.AMAZON_HELP] = amazonHelpHandler;

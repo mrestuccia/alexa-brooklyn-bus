@@ -7,7 +7,7 @@ const Alexa = require('alexa-sdk');
 const Handlers = require('./Handlers');
 
 // Constants
-const APP_ID = ""; // This value would be your Skill ID. You can find this on https://developer.amazon.com/
+const APP_ID = "amzn1.ask.skill.437c7a75-b75f-4ffd-83d7-c78bbfa912c2"; // This value would be your Skill ID. You can find this on https://developer.amazon.com/
 
 exports.handler = function (event, context, callback) {
     let alexa = Alexa.handler(event, context);

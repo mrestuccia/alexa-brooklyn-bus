@@ -13,6 +13,9 @@
       "intent": "GetAddress"
     },
     {
+      "intent": "GetStopsNearby"
+    },
+    {
       "intent": "AMAZON.CancelIntent"
     },
     {

@@ -18,6 +18,8 @@ const GET_NEXTBUS = 'GetNextBus';
 
 const GET_ADDRESS = "GetAddress";
 
+const GET_STOPS_NEARBY = "GetStopsNearby";
+
 /**
  * This is an Amazon built-in intent.
  */
@@ -35,6 +37,7 @@ const AMAZON_STOP = "AMAZON.StopIntent";
 
 module.exports = {
     "GET_NEXTBUS": GET_NEXTBUS,
+    "GET_STOPS_NEARBY": GET_STOPS_NEARBY,
     "GET_ADDRESS": GET_ADDRESS,
     "AMAZON_HELP": AMAZON_HELP,
     "AMAZON_CANCEL": AMAZON_CANCEL,
