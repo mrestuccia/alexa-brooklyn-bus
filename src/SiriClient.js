@@ -4,8 +4,10 @@ const Https = require('https');
 
 class SiriClient {
 
-    constructor() {
+    constructor(busId, stopId) {
         console.log("Creating SiriClient instance.");
+        this.busId = 'MTA%20NYCT_B' + busId;
+        this.stopId = stopId;
     }
 
     getTime() {
@@ -16,11 +18,11 @@ class SiriClient {
 
     __handleDeviceAddressApiRequest(fulfill, reject) {
 
-        Https.get('https://bustime.mta.info/api/siri/stop-monitoring.json?key=TEST&OperatorRef=MTA&MonitoringRef=307674&LineRef=MTA%20NYCT_B52', function (response) {
+        Https.get(`https://bustime.mta.info/api/siri/stop-monitoring.json?key=TEST&OperatorRef=MTA&MonitoringRef=${this.stopId}&LineRef=${this.busId}`, function (response) {
             console.log(`Siri responded with a status code of : ${response.statusCode}`);
 
             response.on('data', function (data) {
-                let responsePayloadObject = JSON.stringify(data);
+                let responsePayloadObject = JSON.parse(data);
 
                 const deviceAddressResponse = {
                     statusCode: response.statusCode,

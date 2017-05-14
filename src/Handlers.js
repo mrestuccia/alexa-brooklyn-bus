@@ -111,15 +111,14 @@ const getAddressHandler = function () {
 const getStopsNearby = function () {
     console.info("Starting getStopsNearby()");
 
-
+    // https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
     // 405 Franklin Lat, Long
     let lat = 40.685168;
     let long = -73.956191;
 
-    const apiEndpoint = 'https://bustime.mta.info/api';
-
-    const _OBUClient = new OBUClient(apiEndpoint);
+    const _OBUClient = new OBUClient();
     let promiseRequest = _OBUClient.getStopId();
+
 
 
     promiseRequest.then((response) => {
@@ -134,7 +133,7 @@ const getStopsNearby = function () {
 
                 //data.data.stops[1].code
 
-                this.emit(":tell", 'Your can take : ' + feedback);
+                this.emit(":ask", 'Your can take : ' + feedback);
                 break;
             case 204:
                 // This likely means that the user didn't have their address set via the companion app.
@@ -156,8 +155,6 @@ const getStopsNearby = function () {
 }
 
 
-
-// Mauro
 const getNextBusHandler = function () {
     console.info("Starting getNextBusHandler()");
 
@@ -166,22 +163,52 @@ const getNextBusHandler = function () {
     let lat = 40.685168;
     let long = -73.956191;
 
-    const apiEndpoint = 'https://bustime.mta.info/api';
+    const busId = this.event.request.intent.slots.bus.value;
+    console.info('Bus id', busId);
 
-    const _SiriClient = new SiriClient();
-    let promiseRequest = _SiriClient.getTime();
+
+    const _OBUClient = new OBUClient();
+    let promiseRequest = _OBUClient.getStopId();
 
     promiseRequest.then((response) => {
         switch (response.statusCode) {
             case 200:
+
                 const data = response.message;
-                console.log("Siri successfully retrieved, now responding to user.");
-                this.emit(":tell", 'Your next B52 bus is 6 miles away');
-                
-                //this.emit(":tell", 'Your next B52 bus is: ' + data.Siri.ServiceDelivery.StopMonitoringDelivery[0].MonitoredStopVisit[0].MonitoredVehicleJourney.MonitoredCall.Extensions.Distances.PresentableDistance);
+                console.log("OBU successfully retrieved, now responding to user. Now looking for the next bus on that stop");
+
+                var stopId = data.data.stops.filter(function (stop) {
+                    return (stop.routes[0].shortName === 'B' + busId)
+                })[0].code;
+
+
+                if (!stopId) {
+                    this.emit(":tell", 'There was an issue retrieving the information for that bus.');
+                    return;
+                }
+
+                const _SiriClient = new SiriClient(busId, stopId);
+                let promiseSiriRequest = _SiriClient.getTime();
+
+
+                promiseSiriRequest
+                    .then((response) => {
+
+                        const siriData = response.message;
+
+                        switch (response.statusCode) {
+                            case 200:
+                                //this.emit(":ask", 'Your next B52 bus is 6 miles away');
+                                this.emit(":ask", `Your next B${busId} bus is: ${siriData.Siri.ServiceDelivery.StopMonitoringDelivery[0].MonitoredStopVisit[0].MonitoredVehicleJourney.MonitoredCall.Extensions.Distances.PresentableDistance}`);
+                                break;
+                        }
+                    }).catch((error) => {
+                        this.emit(":tell", Messages.ERROR);
+                        console.error(error);
+                        console.info("Ending getNextBusHandler()");
+                    });
                 break;
             case 204:
-                // This likely means that the user didn't have their address set via the companion app.
                 console.log("Successfully requested from the Siri, but not found");
                 this.emit(":tell", 'There was an issue retrieving the information');
                 break;

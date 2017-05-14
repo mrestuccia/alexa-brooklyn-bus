@@ -20,11 +20,11 @@ const ERROR = "Uh Oh. Looks like something went wrong.";
 
 const LOCATION_FAILURE = "There was an error with the Device Address API. Please try again.";
 
-const GOODBYE = "Bye! See you soon!";
+const GOODBYE = "Good bye! I hope everybody is enjoying the Stackaton as I am.";
 
 const UNHANDLED = "This skill doesn't support that. Please ask something else.";
 
-const HELP = "You can use this skill by asking something like: whats my address?";
+const HELP = "You can use this skill by asking something like: tell me my nearby stops or, when is the next bus comming?";
 
 const STOP = "There is nothing to stop. Did you mean to ask something else?";
 

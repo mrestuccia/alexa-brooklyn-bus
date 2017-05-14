@@ -4,10 +4,9 @@ const Https = require('https');
 
 class OBUClient {
 
-    constructor(apiEndpoint) {
+    constructor() {
         console.log("Creating OBUClient instance.");
-        //this.endpoint = apiEndpoint.replace(/^https?:\/\//i, "");
-        this.endpoint = 'https://bustime.mta.info/api/siri/stop-monitoring.json?key=TEST&OperatorRef=MTA&MonitoringRef=307674&LineRef=MTA%20NYCT_B52';
+        this.endpoint = 'https://bustime.mta.info/api/where/stops-for-location.json?key=TEST&lat=40.685168&lon=-73.956191&radius=100'
     }
 
     getStopId() {
