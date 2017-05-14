@@ -112,6 +112,11 @@ const getStopsNearby = function () {
     console.info("Starting getStopsNearby()");
 
     // https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
+    // https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
+
+
+    
+
     // 405 Franklin Lat, Long
     let lat = 40.685168;
     let long = -73.956191;
